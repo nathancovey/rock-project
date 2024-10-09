@@ -1,36 +1,29 @@
 // randomly get choice from computer
-
 function getComputerChoice() {
-    let computerChoice = Math.random()
+    let computerChoice = Math.random();
     if (computerChoice < 1/3) {
-        return "rock"
+        return "rock";
     } else if (computerChoice < 2/3) {
-        return "paper"
+        return "paper";
     } else {
-        return "scissors"
+        return "scissors";
     }
 }
 
-
 // collect choice from the user
-
 function getHumanChoice() {
-    let humanChoice = prompt("Rock Paper or Scissors?")
-    return humanChoice.toLowerCase()
+    let humanChoice = prompt("Rock Paper or Scissors?");
+    return humanChoice.toLowerCase();
 }
 
-
 // set human and computer score variables
-
-let humanScore = 0
-let computerScore = 0
-
+let humanScore = 0;
+let computerScore = 0;
 
 // play a round
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        return "Tie! Redo round"
+        return "Tie! Redo round"; // Handle ties but don't count them
     } else if (
         (humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "scissors" && computerChoice === "paper") ||
@@ -44,31 +37,39 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-// play game (5 rounds total)
-
+// play game (until one score reaches 5)
 function playGame() {
-    alert("Time for Rock, Paper, Scissors! We will play until someone has won 5 rounds total.")
+    alert("Time to play Rock, Paper, Scissors! The first to 5 wins!");
 
+    // Keep playing until either score reaches 5
     while (humanScore < 5 && computerScore < 5) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
 
-        // show scores
-        console.log("You: " + humanSelection)
-        console.log("Computer: " + computerSelection)
+        printToLog("You: " + humanSelection);
+        printToLog("Computer: " + computerSelection);
 
-        console.log(playRound(humanSelection, computerSelection))
+        const result = playRound(humanSelection, computerSelection);
+        printToLog(result);
 
-        console.log("Your Score: " + humanScore)
-        console.log("Computer Score: " + computerScore)
+        if (result !== "Tie! Redo round") {
+            printToLog("Your Score: " + humanScore);
+            printToLog("Computer Score: " + computerScore);
+        }
+
+        // Print logs to the HTML
+        function printToLog(message) {
+            const gameLogDiv = document.getElementById("game-log");
+            gameLogDiv.innerHTML += `<p>${message}</p>`;
+}
     }
 
-    // declare final winner
+    // Declare the final winner
     if (humanScore === 5) {
-        console.log("You won the game! 🎉");
+        printToLog("You won the game!");
     } else if (computerScore === 5) {
-        console.log("Computer won the game :(");
+        printToLog("Computer won the game :(");
     }
 }
 
-playGame()
+playGame();
