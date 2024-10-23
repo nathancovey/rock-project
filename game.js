@@ -11,10 +11,11 @@ const computerScoreText = document.querySelector('.computerScoreText');
 const winnerText = document.querySelector('.winner')
 
 function getComputerChoice() {
-    let computerChoice = Math.random();
-    if (computerChoice < 1 / 3) {
+    const randomNumber = Math.random();
+
+    if (randomNumber < 1 / 3) {
         computerChoice = 'rock';
-    } else if (computerChoice < 2 / 3) {
+    } else if (randomNumber < 2 / 3) {
         computerChoice = 'paper';
     } else {
         computerChoice = 'scissors';
