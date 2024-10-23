@@ -2,12 +2,14 @@
 function getComputerChoice() {
     let computerChoice = Math.random();
     if (computerChoice < 1/3) {
-        return "rock";
+        computerChoice = "rock";
     } else if (computerChoice < 2/3) {
-        return "paper";
+        computerChoice = "paper";
     } else {
-        return "scisItssors";
+        computerChoice = "scissors";
     }
+
+    return computerChoice
 }
 
 // get user choice from button
@@ -25,10 +27,34 @@ buttons.forEach(button => {
             userChoice = 'scissors'
         }
 
-        console.log(userChoice)
+        return userChoice
     })
 })
 
 // set human and computer score variables
 let humanScore = 0;
 let computerScore = 0;
+
+//play round
+function playRound() {
+    getComputerChoice()
+
+    if (userChoice === computerChoice) {
+        console.log('Tie!')
+    } else if (
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        console.log('You win!')
+        humanScore += 1
+    } else {
+        console.log('Computer wins!')
+        computerScore += 1
+    }
+}
+
+//play game
+function playGame() {
+    for ()
+}
