@@ -1,11 +1,15 @@
-// declare variables
 let userChoice = null
 let userScore = 0;
 let computerScore = 0;
 let roundsPlayed = 0;
 const winningScore = 5;
 
-// randomly get choice from computer
+const userChoiceText = document.querySelector('.userChoiceText');
+const computerChoiceText = document.querySelector('.computerChoiceText');
+const userScoreText = document.querySelector('.userScoreText');
+const computerScoreText = document.querySelector('.computerScoreText');
+const winnerText = document.querySelector('.winner')
+
 function getComputerChoice() {
     let computerChoice = Math.random();
     if (computerChoice < 1 / 3) {
@@ -19,7 +23,6 @@ function getComputerChoice() {
     return computerChoice
 }
 
-// get user choice from button
 const buttons = document.querySelectorAll('button')
 
 buttons.forEach(button => {
@@ -37,36 +40,41 @@ buttons.forEach(button => {
     })
 })
 
-//play game
 function playRound() {
     const computerChoice = getComputerChoice()
 
+    userChoiceText.textContent = `You: ${userChoice}`
+    computerChoiceText.textContent = `Computer: ${computerChoice}`
+
     if (userChoice === computerChoice) {
-        console.log('Tie!')
+        winnerText.textContent = 'Tie!'
     } else if (
         (userChoice === 'paper' && computerChoice === 'rock') ||
         (userChoice === 'rock' && computerChoice === 'scissors') ||
         (userChoice === 'scissors' && computerChoice === 'paper')
     ) {
-        console.log('You win!')
+        winnerText.textContent = 'You won the round!'
         userScore += 1
     } else {
-        console.log('Computer wins!')
+        winnerText.textContent = 'Computer won the round!'
         computerScore += 1
     }
 
+    userScoreText.textContent = `Your score: ${userScore}`
+    computerScoreText.textContent = `Computer score: ${computerScore}`
+
     roundsPlayed +=1
 
-    console.log(`Round ${roundsPlayed}: You: ${userScore}, Computer: ${computerScore}`)
-
     if (computerScore >= winningScore || userScore >= winningScore) {
-        console.log('Game Over');
-        console.log(`Final Scores - You: ${userScore}, Computer: ${computerScore}`);
+        if (userScore > computerScore) {
+            winnerText.textContent = 'You won the game :) Click a button to play again'
+        } else {
+            winnerText.textContent = 'Computer won the game :( Click a button to play again'
+        }
+
         roundsPlayed = 0
         computerScore = 0
         userScore = 0
     }
 }
 
-//put results in html
-const container = document.querySelector('container')
