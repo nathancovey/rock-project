@@ -1,12 +1,19 @@
+// declare variables
+let userChoice = null
+let userScore = 0;
+let computerScore = 0;
+let roundsPlayed = 0;
+const winningScore = 5;
+
 // randomly get choice from computer
 function getComputerChoice() {
     let computerChoice = Math.random();
-    if (computerChoice < 1/3) {
-        computerChoice = "rock";
-    } else if (computerChoice < 2/3) {
-        computerChoice = "paper";
+    if (computerChoice < 1 / 3) {
+        computerChoice = 'rock';
+    } else if (computerChoice < 2 / 3) {
+        computerChoice = 'paper';
     } else {
-        computerChoice = "scissors";
+        computerChoice = 'scissors';
     }
 
     return computerChoice
@@ -17,7 +24,6 @@ const buttons = document.querySelectorAll('button')
 
 buttons.forEach(button => {
     button.addEventListener('click', e => {
-        let userChoice = null
         
         if (e.target.textContent === 'Rock') {
             userChoice = 'rock'
@@ -27,17 +33,13 @@ buttons.forEach(button => {
             userChoice = 'scissors'
         }
 
-        return userChoice
+        playRound()
     })
 })
 
-// set human and computer score variables
-let humanScore = 0;
-let computerScore = 0;
-
-//play round
+//play game
 function playRound() {
-    getComputerChoice()
+    const computerChoice = getComputerChoice()
 
     if (userChoice === computerChoice) {
         console.log('Tie!')
@@ -47,14 +49,24 @@ function playRound() {
         (userChoice === 'scissors' && computerChoice === 'paper')
     ) {
         console.log('You win!')
-        humanScore += 1
+        userScore += 1
     } else {
         console.log('Computer wins!')
         computerScore += 1
     }
+
+    roundsPlayed +=1
+
+    console.log(`Round ${roundsPlayed}: You: ${userScore}, Computer: ${computerScore}`)
+
+    if (computerScore >= winningScore || userScore >= winningScore) {
+        console.log('Game Over');
+        console.log(`Final Scores - You: ${userScore}, Computer: ${computerScore}`);
+        roundsPlayed = 0
+        computerScore = 0
+        userScore = 0
+    }
 }
 
-//play game
-function playGame() {
-    for ()
-}
+//put results in html
+const container = document.querySelector('container')
